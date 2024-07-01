@@ -1,11 +1,11 @@
 mod commands;
 
 use std::io::{self, Write};
-use commands::{builtin, external};
+use commands::{builtin};
 
 fn main() {
     loop {
-        print!("my_shell> ");
+        print!("rsh> ");
         io::stdout().flush().unwrap();
 
         let mut input = String::new();
@@ -23,13 +23,18 @@ fn main() {
 
         match command {
             "exit" => break,
-            "cd" => builtin::change_directory(&args),
+            "cd" => builtin::cd(&args),
             "echo" => builtin::echo(&args),
-            "pwd" => builtin::print_working_directory(),
+            "pwd" => builtin::pwd(),
+            "ls" => builtin::ls(&args),
+            "touch" => builtin::touch(&args),
+            "mkdir" => builtin::mkdir(&args),
+            "rm" => builtin::rm(&args),
+            "cp" => builtin::cp(&args),
+            "mv" => builtin::mv(&args),
+            "cat" => builtin::cat(&args),
             _ => {
-                if let Err(e) = external::execute_command(command, &args) {
-                    eprintln!("Error: {}", e);
-                }
+                eprintln!("Error: '{}' is not a recognized built-in command.", command);
             }
         }
     }

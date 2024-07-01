@@ -1,9 +1,9 @@
 #!/bin/bash
 
-echo "Running my_shell..."
+echo "Running rust-shell..."
 ./target/release/rust-shell
 
 if [ $? -ne 0 ]; then
-    echo "Error occurred while running my_shell."
+    echo "Error occurred while running rust-shell."
     exit 1
 fi
